@@ -44,5 +44,10 @@ public class event {
 
     // Register for the event
 
+    @GetMapping("/venue/{venueId}")
+    public  List<Map<String, Object>> getEventVenueID(@PathVariable int venueId) throws JsonProcessingException
+    {
+        return eventBriteService.fetchEventbasedonVenue(venueId);
+    }
 
 }

@@ -64,6 +64,34 @@ public class EventBriteService {
         }
     }
 
+
+    public  List<Map<String, Object>> fetchEventbasedonVenue(Integer venueId) throws JsonProcessingException {
+
+        Object object = fetchEvent();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List list = objectMapper.convertValue(object, List.class);
+        List<Map<String, Object>> eventsBasedOnVenue = new ArrayList<>();
+
+        for (Object element : list) {
+            Map<String, Object> map = objectMapper.convertValue(element, Map.class);
+           String venue_Id = (String) map.get("venue_id");
+
+           if(venue_Id != null)
+           {
+               Integer id = Integer.parseInt(venue_Id);
+               if (id == venueId) {
+                   eventsBasedOnVenue.add(map);
+               }
+           }
+
+
+        }
+
+        return eventsBasedOnVenue;
+
+    }
+
      //create events
     public ResponseEntity<Map<String, String>> createEvent(@RequestBody Object object) throws JsonProcessingException {
 
